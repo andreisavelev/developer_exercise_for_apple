@@ -11,8 +11,7 @@ import classes from './Navigation.module.css';
  */
 const navigation = props => (
     <nav className={classes.navigation}>
-        <ul>
-
+        <ul className={classes['navigation-list']}>
             {props.items.map(item => {
                 return (
                     <li key={item.section}>
