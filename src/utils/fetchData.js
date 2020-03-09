@@ -1,12 +1,10 @@
-import {fetch as fetchPolyfill} from 'whatwg-fetch';
-
 /**
- * Fetch data using fetchPolyfill
+ * Fetch data using built-in fetch API
  * @param url {string}
  * @returns {Promise<any>}
  */
 async function fetchData(url) {
-    let response = await fetchPolyfill(url);
+    let response = await fetch(url);
     return await response.json();
 }
 
