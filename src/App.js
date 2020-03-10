@@ -31,8 +31,15 @@ class App extends Component {
         }
     };
 
+    /**
+     * Store timeOut id
+     * @private
+     */
     __resizeId = null;
 
+    /**
+     * Implements built-in method
+     */
     componentDidMount() {
         // fetch navigation items
         fetchData('./data/navigation.json')
@@ -45,12 +52,17 @@ class App extends Component {
                 };
 
                 this.setState(updatedNavigation, () => {
-                    // Hack to show sliding navigation bar on init
+                    // Hack to show sliding navigation bar after setting navigation items
                     window.dispatchEvent(new Event('resize'));
                 });
             });
-    }
+    };
 
+    /**
+     * @param anchor {HTMLElement}
+     * @param list {HTMLElement}
+     * @returns {object}
+     */
     getCalculatedElementPosition = (anchor, list) => {
         let anchorBounding = anchor.getBoundingClientRect();
         let listBounding = list.getBoundingClientRect();
@@ -61,6 +73,9 @@ class App extends Component {
         };
     };
 
+    /**
+     * Set state for the sliding navigation bar
+     */
     setCorrectSlidingNavBarPosition = () => {
         const activeAnchor = document.querySelector('.js-active-link');
         let list = null;
@@ -77,7 +92,12 @@ class App extends Component {
         }
     };
 
-    clickedMenuItemHandler = (element, section) => {
+    /**
+     * Event handler, handles the click on menu item, set state of navigation bar
+     * @param element {object}
+     * @param element.current {HTMLElement}
+     */
+    clickedMenuItemHandler = (element) => {
         if (element.current) {
             this.setState({
                 navigationBarStyle: {
@@ -91,11 +111,15 @@ class App extends Component {
         }
     };
 
+    /**
+     * Event handler, handles the onresize event
+     * does action only when resizing finished
+     */
     onWindowResizeHandler = () => {
         clearTimeout(this.__resizeId);
 
         // firing calculation only when resizing is finished
-        this.__resizeId = setTimeout(this.setCorrectSlidingNavBarPosition, 300);
+        this.__resizeId = setTimeout(this.setCorrectSlidingNavBarPosition, 200);
     };
 
     render() {
