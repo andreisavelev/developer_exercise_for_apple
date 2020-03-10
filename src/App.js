@@ -142,8 +142,12 @@ class App extends Component {
                                           exact
                                           path={`/${city.section}`}
                                           component={() => <Page title={city.label}
-                                                                      timeZone={city.timeZone}/>}/>
+                                                                 timeZone={city.timeZone}/>}/>
                         })}
+
+                        <Route
+                            exact
+                            render={() => <Page title={'Unknown city... :('}/>}/>
                     </Switch>
                 </main>
             </Layout>
