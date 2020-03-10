@@ -14,12 +14,6 @@ class App extends Component {
     state = {
         navigation: {
             cities: []
-        },
-
-        slidingNavBar: {
-            left: 0,
-            opacity: 0,
-            width: 0
         }
     };
 
