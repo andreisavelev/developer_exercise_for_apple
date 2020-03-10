@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import './App.css';
-import classes from './App.css'
+import {Switch, Route} from "react-router-dom";
 
 import fetchData from "./utils/fetchData";
 import Layout from "./components/Layout/Layout";
-import Navigation from './components/Navigation/Navigation'
+import Navigation from './components/Navigation/Navigation';
+import Header from "./components/Herader/Header";
 
 /**
  * @class
@@ -43,6 +43,19 @@ class App extends Component {
             <Layout>
                 <Navigation items={this.state.navigation.cities}
                             clickedMenuItem={this.onClickedMenuItemHandler}/>
+                <Switch>
+                    {/* Root route */}
+                    <Route path={'/'}
+                           exact
+                           render={() => <h2>Please, select the city</h2>}/>
+
+                    {/* List of routes */}
+                    {this.state.navigation.cities.map(city => {
+                        return <Route key={city.section}
+                                      path={`/${city.section}`}
+                                      component={Header}/>
+                    })}
+                </Switch>
             </Layout>
         );
     }

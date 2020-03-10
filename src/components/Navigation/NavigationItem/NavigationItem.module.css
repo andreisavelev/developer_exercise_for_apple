@@ -10,7 +10,15 @@
     color: #9B9B9D;
 }
 
+.navigation-item__link--active {
+    color: #333;
+}
+
+/* Hover */
 .navigation-item__link:hover {
     cursor: pointer;
     color: #0070c9;
+}
+.navigation-item__link--active:hover {
+    color: #333;
 }
