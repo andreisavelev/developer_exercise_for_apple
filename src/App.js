@@ -4,7 +4,7 @@ import {Switch, Route} from "react-router-dom";
 import fetchData from "./utils/fetchData";
 import Layout from "./components/Layout/Layout";
 import Navigation from './components/Navigation/Navigation';
-import Header from "./components/Herader/Header";
+import PageTitle from "./components/PageTitle/PageTitle";
 
 /**
  * @class
@@ -128,19 +128,22 @@ class App extends Component {
                 <Navigation items={this.state.navigation.cities}
                             clickedMenuItem={this.clickedMenuItemHandler}
                             navigationBarStyle={this.state.navigationBarStyle}/>
-                <Switch>
-                    {/* Root route */}
-                    <Route path={'/'}
-                           exact
-                           render={() => <h2>Please, select the city</h2>}/>
 
-                    {/* List of routes */}
-                    {this.state.navigation.cities.map(city => {
-                        return <Route key={city.section}
-                                      path={`/${city.section}`}
-                                      component={Header}/>
-                    })}
-                </Switch>
+                <main style={{textAlign: 'center'}}>
+                    <Switch>
+                        {/* Root route */}
+                        <Route path={'/'}
+                               exact
+                               render={() => <PageTitle title={'Pleas, select the city'} />}/>
+
+                        {/* List of routes */}
+                        {this.state.navigation.cities.map(city => {
+                            return <Route key={city.section}
+                                          path={`/${city.section}`}
+                                          component={() => <PageTitle title={city.label} />}/>
+                        })}
+                    </Switch>
+                </main>
             </Layout>
         );
     }
