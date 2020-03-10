@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import classes from './Navigation.module.css';
 import NavigationItem from "./NavigationItem/NavigationItem";
