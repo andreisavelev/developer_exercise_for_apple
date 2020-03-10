@@ -10,22 +10,22 @@ import NavigationItem from "./NavigationItem/NavigationItem";
  * @param navigationBarStyle {object}
  * @returns {object}
  */
-const Navigation = (props) => {
+const Navigation = ({items, clickedMenuItem, navigationBarStyle}) => {
     return (
         <nav className={classes.navigation}>
             <ul className={classes['navigation-list']}>
-                {props.items.map(item => {
+                {items.map(item => {
                     return (
                         <NavigationItem label={item.label}
                                         key={item.section}
-                                        clicked={(element) => props.clickedMenuItem(element, item.section)}
+                                        clicked={(element) => clickedMenuItem(element, item.section)}
                                         section={item.section}/>
                     );
                 })}
 
                 {/* sliding navigation bar */}
                 <li className={[classes['sliding-bar'], 'js-sliding-bar'].join(' ')}
-                    style={props.navigationBarStyle}/>
+                    style={navigationBarStyle}/>
             </ul>
         </nav>
     );
