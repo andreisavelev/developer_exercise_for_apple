@@ -11,11 +11,27 @@ import Header from "./components/Herader/Header";
  * @classdesc The application's main class
  */
 class App extends Component {
+    constructor(props) {
+        super(props);
+
+        // Avoiding memory leaks
+        window.removeEventListener('resize', this.onWindowResizeHandler);
+        window.addEventListener('resize', this.onWindowResizeHandler);
+    }
+
     state = {
         navigation: {
             cities: []
+        },
+
+        navigationBarStyle: {
+            width: 0,
+            left: 0,
+            opacity: 0
         }
     };
+
+    __resizeId = null;
 
     componentDidMount() {
         // fetch navigation items
@@ -28,15 +44,66 @@ class App extends Component {
                     }
                 };
 
-                this.setState(updatedNavigation);
+                this.setState(updatedNavigation, () => {
+                    // Hack to show sliding navigation bar on init
+                    window.dispatchEvent(new Event('resize'));
+                });
             });
     }
+
+    getCalculatedElementPosition = (anchor, list) => {
+        let anchorBounding = anchor.getBoundingClientRect();
+        let listBounding = list.getBoundingClientRect();
+
+        return {
+            width: `${Math.round(anchorBounding.width)}px`,
+            left: `${Math.round(anchorBounding.left - listBounding.left)}px`
+        };
+    };
+
+    setCorrectSlidingNavBarPosition = () => {
+        const activeAnchor = document.querySelector('.js-active-link');
+        let list = null;
+
+
+        if (activeAnchor) {
+            list = activeAnchor.parentNode.parentNode;
+            this.setState({
+                navigationBarStyle: {
+                    ...this.getCalculatedElementPosition(activeAnchor, list),
+                    opacity: 1
+                }
+            });
+        }
+    };
+
+    clickedMenuItemHandler = (element, section) => {
+        if (element.current) {
+            this.setState({
+                navigationBarStyle: {
+                    ...this.getCalculatedElementPosition(
+                        element.current.children[0],
+                        element.current.parentNode
+                    ),
+                    opacity: 1
+                }
+            });
+        }
+    };
+
+    onWindowResizeHandler = () => {
+        clearTimeout(this.__resizeId);
+
+        // firing calculation only when resizing is finished
+        this.__resizeId = setTimeout(this.setCorrectSlidingNavBarPosition, 300);
+    };
 
     render() {
         return (
             <Layout>
                 <Navigation items={this.state.navigation.cities}
-                            navigationBarStyle={this.state.navigation.slidingNavBar}/>
+                            clickedMenuItem={this.clickedMenuItemHandler}
+                            navigationBarStyle={this.state.navigationBarStyle}/>
                 <Switch>
                     {/* Root route */}
                     <Route path={'/'}
