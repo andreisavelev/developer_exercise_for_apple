@@ -27,6 +27,11 @@ class App extends Component {
             }));
     }
 
+    /**
+     * Handle the click event on the navigation link
+     * @param event
+     * @param clickedItem
+     */
     onClickedMenuItemHandler = (event, clickedItem) => {
         event.preventDefault();
 
