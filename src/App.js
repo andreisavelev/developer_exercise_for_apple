@@ -134,13 +134,15 @@ class App extends Component {
                         {/* Root route */}
                         <Route path={'/'}
                                exact
-                               render={() => <PageTitle title={'Pleas, select the city'} />}/>
+                               render={() => <PageTitle title={'Pleas, select the city'}/>}/>
 
                         {/* List of routes */}
                         {this.state.navigation.cities.map(city => {
                             return <Route key={city.section}
+                                          exact
                                           path={`/${city.section}`}
-                                          component={() => <PageTitle title={city.label} />}/>
+                                          component={() => <PageTitle title={city.label}
+                                                                      timeZone={city.timeZone}/>}/>
                         })}
                     </Switch>
                 </main>
