@@ -2,23 +2,26 @@ import React from 'react';
 
 
 import classes from './Navigation.module.css';
+import NavigationItem from "./NavigationItem/NavigationItem";
 
 /**
  * Navigation component renders list of NavigationItems
- * @param props {object}
- * @param props.items {object[]}
+ * @param items {object[]}
+ * @param clickedMenuItem {function}
  * @returns {object}
  */
-const navigation = props => (
+const navigation = ({items, clickedMenuItem}) => (
     <nav className={classes.navigation}>
         <ul className={classes['navigation-list']}>
-            {props.items.map(item => {
+            {items.map(item => {
                 return (
-                    <li key={item.section}>
-                        <a href={item.section}>{item.label}k</a>
-                    </li>
+                    <NavigationItem label={item.label}
+                                    key={item.section}
+                                    clicked={(event) => clickedMenuItem(event, item.section)}
+                                    section={item.section} />
                 );
             })}
+            <li className={classes['sliding-bar']}></li>
         </ul>
     </nav>
 );

@@ -3,6 +3,7 @@ import './App.css';
 import classes from './App.css'
 
 import fetchData from "./utils/fetchData";
+import Layout from "./components/Layout/Layout";
 import Navigation from './components/Navigation/Navigation'
 
 /**
@@ -26,11 +27,18 @@ class App extends Component {
             }));
     }
 
+    onClickedMenuItemHandler = (event, clickedItem) => {
+        event.preventDefault();
+
+        console.log(clickedItem);
+    };
+
     render() {
         return (
-            <div className={classes.App}>
-                <Navigation items={this.state.navigation.cities}/>
-            </div>
+            <Layout>
+                <Navigation items={this.state.navigation.cities}
+                            clickedMenuItem={this.onClickedMenuItemHandler}/>
+            </Layout>
         );
     }
 }
