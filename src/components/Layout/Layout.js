@@ -1,6 +1,7 @@
 import React from "react";
 
 import classes from './Layout.module.css';
+
 /**
  * Layout component
  * @param children {object}
