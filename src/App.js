@@ -4,7 +4,7 @@ import {Switch, Route} from "react-router-dom";
 import fetchData from "./utils/fetchData";
 import Layout from "./components/Layout/Layout";
 import Navigation from './components/Navigation/Navigation';
-import PageTitle from "./components/PageTitle/PageTitle";
+import Page from "./components/PageTitle/PageTitle";
 
 /**
  * @class
@@ -134,14 +134,14 @@ class App extends Component {
                         {/* Root route */}
                         <Route path={'/'}
                                exact
-                               render={() => <PageTitle title={'Pleas, select the city'}/>}/>
+                               render={() => <Page title={'Pleas, select the city'}/>}/>
 
                         {/* List of routes */}
                         {this.state.navigation.cities.map(city => {
                             return <Route key={city.section}
                                           exact
                                           path={`/${city.section}`}
-                                          component={() => <PageTitle title={city.label}
+                                          component={() => <Page title={city.label}
                                                                       timeZone={city.timeZone}/>}/>
                         })}
                     </Switch>
