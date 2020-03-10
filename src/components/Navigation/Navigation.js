@@ -21,6 +21,8 @@ const navigation = ({items, clickedMenuItem}) => (
                                     section={item.section} />
                 );
             })}
+
+            {/* sliding navigation bar */}
             <li className={classes['sliding-bar']}></li>
         </ul>
     </nav>

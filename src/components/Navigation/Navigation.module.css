@@ -15,4 +15,11 @@
 
 .sliding-bar {
     position: absolute;
+    width: 100px;
+    height: 100%;
+    bottom: -2px;
+    border-bottom: 1px solid #333;
+    z-index: -1;
+    opacity: 0;
+    transition: all .3s;
 }
