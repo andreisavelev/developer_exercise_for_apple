@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {NavLink} from "react-router-dom";
 
 import classes from './NavigationItem.module.css';
@@ -11,23 +11,16 @@ import classes from './NavigationItem.module.css';
  * @param clicked {function}
  * @returns {object}
  */
-const navigationItem = ({section, label, clicked}) => {
-    const isActive = function (match, location) {
-        if (!match) {
-            return false;
-        }
-
-        console.log('clicked', location, match);
-
-        return true;
-    };
+const NavigationItem = ({section, label, clicked}) => {
+    const listItemRef = useRef(null);
 
     return (
-        <li className={classes['navigation-item']}>
+        <li className={classes['navigation-item']}
+            onClick={() => clicked(listItemRef)}
+            ref={listItemRef}>
             <NavLink to={section}
                      className={classes['navigation-item__link']}
-                     activeClassName={classes['navigation-item__link--active']}
-                     isActive={isActive}>
+                     activeClassName={[classes['navigation-item__link--active'], 'js-active-link'].join(' ')}>
                 {label}
             </NavLink>
 
@@ -36,4 +29,4 @@ const navigationItem = ({section, label, clicked}) => {
     );
 };
 
-export default navigationItem;
+export default NavigationItem;

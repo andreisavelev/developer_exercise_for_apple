@@ -14,35 +14,35 @@ class App extends Component {
     state = {
         navigation: {
             cities: []
+        },
+
+        slidingNavBar: {
+            left: 0,
+            opacity: 0,
+            width: 0
         }
     };
 
     componentDidMount() {
         // fetch navigation items
         fetchData('./data/navigation.json')
-            .then(res => this.setState({
-                navigation: {
-                    cities: res.cities
-                }
-            }));
+            .then(res => {
+                const updatedNavigation = {
+                    navigation: {
+                        ...this.state.navigation,
+                        cities: res.cities
+                    }
+                };
+
+                this.setState(updatedNavigation);
+            });
     }
-
-    /**
-     * Handle the click event on the navigation link
-     * @param event
-     * @param clickedItem
-     */
-    onClickedMenuItemHandler = (event, clickedItem) => {
-        event.preventDefault();
-
-        console.log(clickedItem);
-    };
 
     render() {
         return (
             <Layout>
                 <Navigation items={this.state.navigation.cities}
-                            clickedMenuItem={this.onClickedMenuItemHandler}/>
+                            navigationBarStyle={this.state.navigation.slidingNavBar}/>
                 <Switch>
                     {/* Root route */}
                     <Route path={'/'}
