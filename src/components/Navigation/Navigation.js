@@ -4,10 +4,11 @@ import classes from './Navigation.module.css';
 import NavigationItem from "./NavigationItem/NavigationItem";
 
 /**
- *
- * @param props
- * @returns {*}
- * @constructor
+ * Navigation component
+ * @param items {object[]}
+ * @param clickedMenuItem {function}
+ * @param navigationBarStyle {object}
+ * @returns {object}
  */
 const Navigation = (props) => {
     return (
